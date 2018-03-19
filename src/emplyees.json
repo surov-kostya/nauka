@@ -1,0 +1,29 @@
+[
+  {
+    "preview": "https://picsum.photos/50/50",
+    "firstName": "Василий",
+    "lastName": "Игнатьев",
+    "birthday": "1980-04-23",
+    "position": "Маркетолог",
+    "remote": "Нет",
+    "address": "СПб, ул. Лени Голикова, д. 5, кв. 100"
+  },
+  {
+    "preview": "https://picsum.photos/50/50",
+    "firstName": "Петр",
+    "lastName": "Косыгин",
+    "birthday": "1981-04-02",
+    "position": "Диретор",
+    "remote": "Нет",
+    "address": "СПб, ул. Солдата Корзуна, д. 5, кв. 100"
+  },
+  {
+    "preview": "https://picsum.photos/50/50",
+    "firstName": "Владимир",
+    "lastName": "Петров",
+    "birthday": "1982-04-03",
+    "position": "Консультант",
+    "remote": "Нет",
+    "address": "СПб, пр. Ветеранов, д. 5, кв. 100"
+  }
+]
