@@ -1,17 +1,17 @@
 <template>
   <table id="table">
     <thead>
-      <th>Превью</th>
-      <th>Имя</th>
-      <th>Фамилия</th>
-      <th>Дата Рождения</th>
-      <th>Возраст</th>
-      <th>Должность</th>
-      <th>Удаленная работа</th>
-      <th>Адрес проживания</th>
+      <th>Превью<span class="border"></span></th>
+      <th>Имя<span class="border"></span></th>
+      <th>Фамилия<span class="border"></span></th>
+      <th>Дата Рождения<span class="border"></span></th>
+      <th>Возраст<span class="border"></span></th>
+      <th>Должность<span class="border"></span></th>
+      <th>Удаленная работа<span class="border"></span></th>
+      <th>Адрес проживания<span class="border"></span></th>
     </thead>
     <tbody>
-      <app-table-row v-for="employee in employees" row="employee"></app-table-row>
+      <app-table-row v-for="employee in employees" :key="employees[employee]" :row="employee"></app-table-row>
     </tbody>
     
 
@@ -19,6 +19,12 @@
 </template>
 
 <script>
+
+// let eployeesList = fetch("./rows.json")
+//   .then(function(respons){
+//     return respons.json();
+//   })
+
 import AppTableRow from "./Table-row.vue"
 export default {
   data () {
@@ -61,5 +67,32 @@ export default {
 </script>
 
 <style lang="scss">
+
+table{
+  border: 2px solid black;
+  border-right: 0;
+}
+
+th, td {
+  position: relative;
+  padding: 5px 10px 5px 5px;
+}
+
+th {
+  border-bottom: 2px solid black;
+}
+  
+
+.border{
+  position: absolute;
+  right: -2px;
+  top:-2px;
+  bottom:-2px;
+  border-right: 3px solid black;
+
+  &:hover{
+    cursor: col-resize;
+  }
+}
 
 </style>
