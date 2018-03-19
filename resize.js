@@ -80,3 +80,9 @@ table.addEventListener('mousedown', e=>{
     
   }
 })
+
+
+// let eployeesList = fetch("./rows.json")
+//   .then(function(respons){
+//     return respons.json();
+//   })

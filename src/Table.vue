@@ -1,17 +1,17 @@
 <template>
   <table id="table">
     <thead>
-      <th>Превью<span class="border"></span></th>
-      <th>Имя<span class="border"></span></th>
-      <th>Фамилия<span class="border"></span></th>
-      <th>Дата Рождения<span class="border"></span></th>
-      <th>Возраст<span class="border"></span></th>
-      <th>Должность<span class="border"></span></th>
-      <th>Удаленная работа<span class="border"></span></th>
-      <th>Адрес проживания<span class="border"></span></th>
+      <th v-for="(head, key) in tableHeader" :key="key">
+        {{ head }}
+        <span class="cell__border" @mousedown="mouseDown"></span>
+      </th>
     </thead>
     <tbody>
-      <app-table-row v-for="employee in employees" :key="employees[employee]" :row="employee"></app-table-row>
+      <app-table-row v-for="(employee, num) in employees" 
+        :key="num" 
+        :row="employee"
+        :mouseDown="mouseDown"
+      ></app-table-row>
     </tbody>
     
 
@@ -20,17 +20,27 @@
 
 <script>
 
-// let eployeesList = fetch("./rows.json")
-//   .then(function(respons){
-//     return respons.json();
-//   })
+function mouseMove(e){
+  
+}
 
 import AppTableRow from "./Table-row.vue"
 export default {
   data () {
     return {
+      tableHeader:[
+        "Превью",
+        "Имя", 
+        "Фамилия", 
+        "Дата рождения", 
+        "Возраст", 
+        "Должность",
+        "Удаленная работа",
+        "Адрес проживания"
+      ],
       employees: [
         {
+          id: 0,
           preview: "https://picsum.photos/50/50/?random",
           firstName: "Василий",
           lastName: "Игнатьев",
@@ -40,6 +50,7 @@ export default {
           address: "СПб, ул. Лени Голикова, д. 5, кв. 100"
         },
         {
+          id: 1,
           preview: "https://picsum.photos/50/50?random",
           firstName: "Василий",
           lastName: "Игнатьев",
@@ -49,6 +60,7 @@ export default {
           address: "СПб, ул. Лени Голикова, д. 5, кв. 100"
         },
         {
+          id: 2,
           preview: "https://picsum.photos/50/50?random",
           firstName: "Василий",
           lastName: "Игнатьев",
@@ -60,6 +72,14 @@ export default {
       ]
     }
   },
+  methods:{
+    mouseDown: function(e){
+      this.cell = e.target.parentElement;
+      let cellWidth = cell.offsetWidth;
+      let startX = e.screenX;
+      window.addEventListener('mousemove', mouseMove)
+    }
+  },
   components:{
     AppTableRow
   }
@@ -68,9 +88,23 @@ export default {
 
 <style lang="scss">
 
+.table__row{
+  &:nth-child(2n -1){
+    background-color: lighten(gray, 40%);
+  }
+
+  &:hover{
+    background-color: lighten(green, 60%);
+  }
+}
+
 table{
   border: 2px solid black;
   border-right: 0;
+}
+
+thead{
+  background-color: lighten(gray, 20%);
 }
 
 th, td {
@@ -83,7 +117,7 @@ th {
 }
   
 
-.border{
+.cell__border{
   position: absolute;
   right: -2px;
   top:-2px;

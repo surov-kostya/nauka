@@ -1,23 +1,11 @@
 <template>
-  <tr id="table-row">
-    <td v-for="prop in newRow"> {{prop}} <span class="border"></span> </td>
+  <tr id="table-row" :class="'table__row table__row_' + rowId" >
+    <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
+      <img v-show="prop == 'preview'" :src="val">
+      <span v-show="prop !== 'preview'" class="cell__data">{{val}}</span>
+      <span class="cell__border" @mousedown="mouseDown"></span>
+    </td>
     
-    <!-- <td> {{newRow.preview}} </td>
-    <td class="border"></td>
-    <td> {{ newRow.firstName }}</td>
-    <td class="border"></td>
-    <td> {{ newRow.lastName }}</td>
-    <td class="border"></td>
-    <td> {{ newRow.birthday }}</td>
-    <td class="border"></td>
-    <td> {{ newRow.age }} </td>
-    <td class="border"></td>
-    <td> {{ newRow.position }}</td>
-    <td class="border"></td>
-    <td> {{ newRow.remote }}</td>
-    <td class="border"></td>
-    <td> {{ newRow.address }}</td>
-    <td class="border"></td> -->
   </tr>
 </template>
 
@@ -26,16 +14,17 @@
 
 export default {
   props: {
-    row: Object
+    row: Object,
+    mouseDown: Function
   },
   data () {
     return {
     }
   },
-  computed:{
-    // newPreview: function(){
-    //   return `<img src='${this.row.preview}' />`
-    // },
+  computed:{    
+    rowId: function(){
+      return this.row.id
+    },
     newRow: function(){
       return {
         preview: this.row.preview,
