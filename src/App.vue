@@ -1,11 +1,17 @@
 <template>
   <div id="app">
+    <app-controls
+      @addEmployee="addEmployee"
+      @editEmployee="editEmployee"
+      @removeEmployee="removeEmployee"
+    ></app-controls>
     <app-table :employees="employees"></app-table>
   </div>
 </template>
 
 <script>
-import AppTable from './Table.vue'
+import AppTable from './components/table/Table.vue'
+import AppControls from './components/Controls.vue'
 export default {
   name: 'app',
   data () {
@@ -14,10 +20,22 @@ export default {
     }
   },
   components:{
-    AppTable
+    AppTable,
+    AppControls
+  },
+  methods:{
+    addEmployee: function(){
+      
+    },
+    editEmployee: function(){
+
+    },
+    removeEmployee: function(){
+
+    }
   },
   created() {
-    fetch('/src/employees.json')
+    fetch('/src/assets/employees.json')
       .then((response) => {
         return response.json();
       })
@@ -33,9 +51,7 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;

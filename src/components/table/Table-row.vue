@@ -2,7 +2,8 @@
   <tr id="table-row" :class="'table__row table__row_' + rowId" >
     <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
       <img v-show="prop == 'preview'" :src="val">
-      <span v-show="prop !== 'preview'" class="cell__data">{{val}}</span>
+      <input type="checkbox" v-show="prop == 'remote'" :checked="val"/>
+      <span v-show="prop !== 'preview' && prop !== 'remote' " class="cell__data">{{val}}</span>
       <span class="cell__border" @mousedown="resizeColumn"></span>
     </td>
     
@@ -33,7 +34,7 @@ export default {
         birthday: this.row.birthday,
         age: this.ageHandler(this.row.birthday),
         position: this.row.position,
-        remote: this.row.remote,
+        remote: this.row.remote === 'Нет' ? false : true,
         address: this.row.address
       }
     }

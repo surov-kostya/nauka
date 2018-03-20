@@ -58,7 +58,43 @@ export default {
       })
     },
     sortTable: function(e){
-
+      switch (e.target.innerText) {
+        case "Имя":
+          this.employees.sort((a, b)=>{
+            return a.firstName < b.firstName ? -1 : 1;
+          });
+          break;
+        case "Фамилия":
+          this.employees.sort((a, b)=>{
+            return a.lastName < b.lastName ? -1 : 1;
+          });
+          break;
+        case "Дата рождения":
+          this.employees.sort((a, b)=>{
+           return a.birthday < b.birthday ? -1 : 1;
+          });
+          break;
+        // case "Возраст":
+        //   this.employees.sort((a, b)=>{
+        //     return a.age < b.age ? -1 : 1;
+        //   });
+        //   break;
+        case "Должность":
+          this.employees.sort((a, b)=>{
+            return a.position < b.position ? -1 : 1;
+          });
+          break;
+        case "Удаленная работа":
+          this.employees.sort((a, b)=>{
+            return a.remote < b.remote ? -1 : 1;
+          });
+          break;
+        case "Адрес проживания":
+          this.employees.sort((a, b)=>{
+            return a.address < b.address ? -1 : 1;
+          });
+          break;
+      }
     }
   },
   components:{
