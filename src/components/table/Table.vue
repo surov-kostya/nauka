@@ -109,10 +109,6 @@ export default {
   &:nth-child(2n -1){
     background-color: lighten(gray, 40%);
   }
-
-  &:hover{
-    background-color: lighten(green, 60%);
-  }
 }
 
 table{
@@ -128,11 +124,11 @@ thead{
 th, td {
   position: relative;
   padding: 5px;
+  cursor: pointer;
 }
 
 th {
   border-bottom: 2px solid black;
-  cursor: pointer;
 }
   
 

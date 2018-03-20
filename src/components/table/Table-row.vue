@@ -1,12 +1,11 @@
 <template>
-  <tr id="table-row" :class="'table__row table__row_' + rowId" >
+  <tr id="table-row" :class="'table__row table__row_' + rowId" @click="rowSelect">
     <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
       <img v-show="prop == 'preview'" :src="val">
       <input type="checkbox" v-show="prop == 'remote'" :checked="val"/>
       <span v-show="prop !== 'preview' && prop !== 'remote' " class="cell__data">{{val}}</span>
       <span class="cell__border" @mousedown="resizeColumn"></span>
-    </td>
-    
+    </td>  
   </tr>
 </template>
 
@@ -42,6 +41,9 @@ export default {
   methods:{
     ageHandler: function(bday){
       return (new Date(Date.now() - Date.parse(bday)).getFullYear() - 1970)
+    },
+    rowSelect: function(e){
+      e.target.classList.add('table-row_active');
     }
   }
 }
@@ -50,5 +52,8 @@ export default {
 
 <style lang="scss">
 
+.table-row_active{
+  background-color: lighten(green, 60%);
+}
 
 </style>
