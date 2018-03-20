@@ -3,7 +3,7 @@
     <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
       <img v-show="prop == 'preview'" :src="val">
       <span v-show="prop !== 'preview'" class="cell__data">{{val}}</span>
-      <span class="cell__border" @mousedown="mouseDown"></span>
+      <span class="cell__border" @mousedown="resizeColumn"></span>
     </td>
     
   </tr>
@@ -15,7 +15,7 @@
 export default {
   props: {
     row: Object,
-    mouseDown: Function
+    resizeColumn: Function
   },
   data () {
     return {

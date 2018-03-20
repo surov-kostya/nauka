@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <app-table>
-      
-    </app-table>
+    <app-table :employees="employees"></app-table>
   </div>
 </template>
 
@@ -12,11 +10,23 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      employees:[]
     }
   },
   components:{
     AppTable
+  },
+  created() {
+    fetch('/src/employees.json')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.employees = data;
+      })
+      .catch((error) => {
+          console.log(error);
+      });
   }
 }
 </script>

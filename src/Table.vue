@@ -1,16 +1,16 @@
 <template>
   <table id="table">
     <thead>
-      <th v-for="(head, key) in tableHeader" :key="key">
+      <th v-for="(head, key) in tableHeader" :key="key" @click="sortTable">
         {{ head }}
-        <span class="cell__border" @mousedown="mouseDown"></span>
+        <span class="cell__border" @mousedown="resizeColumn"></span>
       </th>
     </thead>
     <tbody>
       <app-table-row v-for="(employee, num) in employees" 
         :key="num" 
         :row="employee"
-        :mouseDown="mouseDown"
+        :resizeColumn="resizeColumn"
       ></app-table-row>
     </tbody>
     
@@ -20,12 +20,11 @@
 
 <script>
 
-function mouseMove(e){
-  
-}
-
 import AppTableRow from "./Table-row.vue"
 export default {
+  props:{
+    employees: Array
+  },
   data () {
     return {
       tableHeader:[
@@ -37,47 +36,29 @@ export default {
         "Должность",
         "Удаленная работа",
         "Адрес проживания"
-      ],
-      employees: [
-        {
-          id: 0,
-          preview: "https://picsum.photos/50/50/?random",
-          firstName: "Василий",
-          lastName: "Игнатьев",
-          birthday: "1980-04-23",
-          position: "Маркетолог",
-          remote: "Нет",
-          address: "СПб, ул. Лени Голикова, д. 5, кв. 100"
-        },
-        {
-          id: 1,
-          preview: "https://picsum.photos/50/50?random",
-          firstName: "Василий",
-          lastName: "Игнатьев",
-          birthday: "1980-04-23",
-          position: "Маркетолог",
-          remote: "Нет",
-          address: "СПб, ул. Лени Голикова, д. 5, кв. 100"
-        },
-        {
-          id: 2,
-          preview: "https://picsum.photos/50/50?random",
-          firstName: "Василий",
-          lastName: "Игнатьев",
-          birthday: "1980-04-23",
-          position: "Маркетолог",
-          remote: "Нет",
-          address: "СПб, ул. Лени Голикова, д. 5, кв. 100"
-        }
       ]
     }
   },
   methods:{
-    mouseDown: function(e){
-      this.cell = e.target.parentElement;
+    resizeColumn: function(e){
+      let cell = e.target.parentElement;
       let cellWidth = cell.offsetWidth;
       let startX = e.screenX;
-      window.addEventListener('mousemove', mouseMove)
+
+      function mouseMove(e){
+        let currentX = e.screenX;
+        let newCellWidth = cellWidth + currentX - startX;
+        cell.style.width = newCellWidth + 'px';
+      };
+
+      window.addEventListener('mousemove', mouseMove);
+
+      window.addEventListener('mouseup', ()=>{
+        window.removeEventListener('mousemove', mouseMove);
+      })
+    },
+    sortTable: function(e){
+
     }
   },
   components:{
@@ -99,6 +80,7 @@ export default {
 }
 
 table{
+  border-collapse: collapse;
   border: 2px solid black;
   border-right: 0;
 }
@@ -109,11 +91,12 @@ thead{
 
 th, td {
   position: relative;
-  padding: 5px 10px 5px 5px;
+  padding: 5px;
 }
 
 th {
   border-bottom: 2px solid black;
+  cursor: pointer;
 }
   
 
@@ -122,7 +105,8 @@ th {
   right: -2px;
   top:-2px;
   bottom:-2px;
-  border-right: 3px solid black;
+  border-right: 2px solid black;
+  padding-right:5px;
 
   &:hover{
     cursor: col-resize;
