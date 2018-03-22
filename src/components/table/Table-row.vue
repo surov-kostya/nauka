@@ -1,7 +1,7 @@
 <template>
-  <tr id="table-row" :class="'table__row table__row_' + rowId" @click="rowSelect">
+  <tr id="table-row" class="table__row" @click="activateRow">
     <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
-      <img v-show="prop == 'preview'" :src="val">
+      <img v-show="prop == 'preview'" :src="val +'/50/50'" alt='preview'>
       <input type="checkbox" v-show="prop == 'remote'" :checked="val"/>
       <span v-show="prop !== 'preview' && prop !== 'remote' " class="cell__data">{{val}}</span>
       <span class="cell__border" @mousedown="resizeColumn"></span>
@@ -21,10 +21,7 @@ export default {
     return {
     }
   },
-  computed:{    
-    rowId: function(){
-      return this.row.id
-    },
+  computed:{   
     newRow: function(){
       return {
         preview: this.row.preview,
@@ -38,12 +35,18 @@ export default {
       }
     }
   },
-  methods:{
+  methods:{   
+    activateRow: function(e){
+      let siblings = document.querySelectorAll('.table__row');
+      for (let i=0; i<=siblings.length; i++){
+        if (siblings[i] !== undefined){
+          siblings[i].classList.remove('table__row_active')
+        }
+      }
+      e.currentTarget.classList.add('table__row_active')
+    }, 
     ageHandler: function(bday){
       return (new Date(Date.now() - Date.parse(bday)).getFullYear() - 1970)
-    },
-    rowSelect: function(e){
-      e.target.classList.add('table-row_active');
     }
   }
 }
@@ -52,8 +55,17 @@ export default {
 
 <style lang="scss">
 
-.table-row_active{
-  background-color: lighten(green, 60%);
+tr{
+  &:nth-child(2n){
+    background-color: lighten(gray, 40%);
+  }
+
+  + .table__row_active{
+    transition: .3s;
+    background-color: lighten(green, 60%);
+  }
 }
 
+
 </style>
+

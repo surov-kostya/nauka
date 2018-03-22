@@ -1,7 +1,9 @@
 <template>
   <table id="table">
     <thead>
-      <th v-for="(head, key) in tableHeader" :key="key" @click="sortTable">
+      <th v-for="(head, key) in tableHeader" 
+          :key="key" 
+          @click="sortTable">
         {{ head }}
         <span class="cell__border" @mousedown="resizeColumn"></span>
       </th>
@@ -13,8 +15,6 @@
         :resizeColumn="resizeColumn"
       ></app-table-row>
     </tbody>
-    
-
   </table>
 </template>
 
@@ -105,16 +105,13 @@ export default {
 
 <style lang="scss">
 
-.table__row{
-  &:nth-child(2n -1){
-    background-color: lighten(gray, 40%);
-  }
-}
+
 
 table{
   border-collapse: collapse;
-  border: 2px solid black;
+  border: 1px solid black;
   border-right: 0;
+  box-shadow: 3px 3px 10px 0px;
 }
 
 thead{
@@ -135,7 +132,7 @@ th {
 .cell__border{
   position: absolute;
   right: -2px;
-  top:-2px;
+  top:-1px;
   bottom:-2px;
   border-right: 2px solid black;
   padding-right:5px;
