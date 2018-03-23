@@ -8,11 +8,12 @@
         <span class="cell__border" @mousedown="resizeColumn"></span>
       </th>
     </thead>
-    <tbody>
+    <tbody class="table__body">
       <app-table-row v-for="(employee, num) in employees" 
         :key="num" 
         :row="employee"
         :resizeColumn="resizeColumn"
+        :ageHandler="ageHandler"
       ></app-table-row>
     </tbody>
   </table>
@@ -74,11 +75,11 @@ export default {
            return a.birthday < b.birthday ? -1 : 1;
           });
           break;
-        // case "Возраст":
-        //   this.employees.sort((a, b)=>{
-        //     return a.age < b.age ? -1 : 1;
-        //   });
-        //   break;
+        case "Возраст":
+          this.employees.sort((a, b)=>{
+            return this.ageHandler(a.birthday) < this.ageHandler(b.birthday) ? -1 : 1;
+          });
+          break;
         case "Должность":
           this.employees.sort((a, b)=>{
             return a.position < b.position ? -1 : 1;
@@ -95,6 +96,9 @@ export default {
           });
           break;
       }
+    },
+    ageHandler: function(bday){
+      return (new Date(Date.now() - Date.parse(bday)).getFullYear() - 1970)
     }
   },
   components:{
@@ -112,6 +116,7 @@ table{
   border: 1px solid black;
   border-right: 0;
   box-shadow: 3px 3px 10px 0px;
+  margin-bottom: 50px;
 }
 
 thead{
@@ -127,7 +132,6 @@ th, td {
 th {
   border-bottom: 2px solid black;
 }
-  
 
 .cell__border{
   position: absolute;

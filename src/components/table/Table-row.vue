@@ -1,7 +1,7 @@
 <template>
   <tr id="table-row" class="table__row" @click="activateRow">
-    <td class="cell" v-for="(val, prop) in newRow" :key="newRow[prop]">
-      <img v-show="prop == 'preview'" :src="val +'/50/50'" alt='preview'>
+    <td class="cell" v-for="(val, prop, i) in newRow" :key="i">
+      <img class="preview-img" v-show="prop == 'preview'" :src="val" alt='preview'>
       <input type="checkbox" v-show="prop == 'remote'" :checked="val"/>
       <span v-show="prop !== 'preview' && prop !== 'remote' " class="cell__data">{{val}}</span>
       <span class="cell__border" @mousedown="resizeColumn"></span>
@@ -15,7 +15,8 @@
 export default {
   props: {
     row: Object,
-    resizeColumn: Function
+    resizeColumn: Function,
+    ageHandler: Function
   },
   data () {
     return {
@@ -44,9 +45,6 @@ export default {
         }
       }
       e.currentTarget.classList.add('table__row_active')
-    }, 
-    ageHandler: function(bday){
-      return (new Date(Date.now() - Date.parse(bday)).getFullYear() - 1970)
     }
   }
 }
@@ -55,17 +53,19 @@ export default {
 
 <style lang="scss">
 
-tr{
-  &:nth-child(2n){
+.table__row:nth-child(2n){
     background-color: lighten(gray, 40%);
-  }
-
-  + .table__row_active{
-    transition: .3s;
-    background-color: lighten(green, 60%);
-  }
 }
 
+.table__body .table__row_active{
+  transition: .2s;
+  background-color: lighten(green, 60%);
+}
+
+.preview-img{
+  width:50px;
+  height: 50px;
+}
 
 </style>
 

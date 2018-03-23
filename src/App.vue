@@ -8,7 +8,11 @@
       ></app-controls>
       <app-table :employees="employees"></app-table>      
     </div>  
-    <app-modal v-else :employees="employees"></app-modal>  
+    <app-modal 
+      v-else :curEmpl="curEmpl" 
+      :employees="employees"
+      @submitSent="submitSent"
+    ></app-modal>  
   </div>
 </template>
 
@@ -23,7 +27,8 @@ export default {
       state:{
         main:true
       },
-      employees:[]
+      employees:[],
+      curEmpl: null
     }
   },
   components:{
@@ -39,10 +44,10 @@ export default {
       let employees = document.querySelectorAll('.table__row')
       for (let i=0; i<=employees.length; i++){
         if (employees[i] !== undefined && employees[i].classList.contains('table__row_active')){
-          
+          this.state.main=false;
+          this.curEmpl = i
         }
       }
-      this.state.main=false;      
     },
     removeEmployee: function(){
       let employees = document.querySelectorAll('.table__row')
@@ -51,7 +56,9 @@ export default {
           this.employees.splice(i, 1);
         }
       }
-      
+    },
+    submitSent: function(){
+      this.state.main=true;
     }
   },
   created() {
@@ -70,6 +77,9 @@ export default {
 </script>
 
 <style lang="scss">
+
+
+
 #app {
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;

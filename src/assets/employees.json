@@ -1,7 +1,7 @@
 [
   {
     "id":0,
-    "preview": "https://picsum.photos",
+    "preview": "/src/assets/default.jpg",
     "firstName": "Василий",
     "lastName": "Игнатьев",
     "birthday": "1980-04-23",
@@ -11,7 +11,7 @@
   },
   {
     "id":1,
-    "preview": "https://picsum.photos",
+    "preview": "/src/assets/default.jpg",
     "firstName": "Петр",
     "lastName": "Косыгин",
     "birthday": "1981-04-02",
@@ -21,7 +21,7 @@
   },
   {
     "id":2,
-    "preview": "https://picsum.photos",
+    "preview": "/src/assets/default.jpg",
     "firstName": "Владимир",
     "lastName": "Петров",
     "birthday": "1982-04-03",
